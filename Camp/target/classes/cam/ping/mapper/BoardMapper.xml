@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="cam.ping.mapper.BoardMapper"> 
+  	<select id="listall" resultType="Board">
+	    select * from BOARD order by seq desc
+	</select>
+	<select id="select" parameterType="long" resultType="Board">
+	  select * from BOARD where SEQ=#{seq}
+	</select>  
+	<select  id="insert" parameterType="Board">
+		insert into BOARD values(BOARD_SEQ.nextval, #{email}, #{title}, #{name}, #{content}, 0, SYSDATE, SYSDATE, 0)
+	</select>
+	<select  id="comment" parameterType="long">
+		select COUNT(*) from BOARD_COMMENT where BOARD_SEQ=#{seq} 
+	</select>
+	<delete id="delete" parameterType="long">
+		delete from BOARD where SEQ=#{seq}
+	</delete>
+	<update id="update" parameterType="Board">
+		update BOARD set NAME=#{name}, TITLE=#{title}, CONTENT=#{content}, UDATE=SYSDATE where SEQ=#{seq}
+	</update>
+	<update id="board_viewnum" parameterType="long">
+		update BOARD set VIEWNUM=VIEWNUM+1 where seq=#{seq}
+	</update>
+	
+	<update id="comment_update" parameterType="Board">
+		update BOARD set COMMENT_NUM=COMMENT_NUM+#{count} where seq=#{seq}
+	</update>
+	
+	
+	<select  id="searchList" resultType="Board">
+		<![CDATA[
+	     select * from BOARD where ${catgo} like '%'||#{keyword}||'%' order by seq desc
+	     ]]>
+	</select>
+	<select  id="searchAll" resultType="Board">
+		<![CDATA[
+	     select * from BOARD where TITLE like '%'||#{keyword}||'%' or CONTENT like '%'||#{keyword}||'%' order by seq desc
+	     ]]>
+	</select>
+	<select  id="insertComment" parameterType="Comment">
+		insert into BOARD_COMMENT values(BOARD_COMMENT_SEQ.nextval, #{board_seq}, #{writer}, #{content}, SYSDATE, #{email})
+	</select>
+	<select  id="CommentList" parameterType="long" resultType="Comment">
+		select * from BOARD_COMMENT where BOARD_SEQ=#{board_seq}
+	</select>
+	<select  id="CommentSearch" parameterType="String" resultType="Board">
+		<![CDATA[
+	     select * from BOARD where seq in (select BOARD_SEQ from BOARD_COMMENT where CONTENT like '%'||#{keyword}||'%') order by seq desc
+	     ]]>
+	</select>
+	
+ </mapper> 

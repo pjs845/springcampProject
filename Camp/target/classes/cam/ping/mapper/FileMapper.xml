@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="cam.ping.mapper.FileMapper"> 
+  	<select id="insert" resultType="File">
+	    insert into BOARD_FILE values(BOARD_FILE_SEQ.nextval, #{ofilename}, #{filename}, #{filesize})
+	</select>
+	<delete id="delete" parameterType="String">
+		<![CDATA[
+	     delete from BOARD_FILE where FILENAME=#{filename} AND NOT EXISTS (select 1 from BOARD where CONTENT like '%'||#{filename}||'%')
+	     ]]>
+	</delete>
+	<select id="listall" resultType="File">
+	    select * from BOARD_FILE order by seq desc
+	</select>
+ </mapper> 

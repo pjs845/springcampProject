@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+<!--  	<typeAlias alias="Address" type="soo.bin.domain.Address"/>
+ 	<typeAlias alias="Board" type="soo.bin.domain.Board"/>
+ 	<typeAlias alias="BoardPaging" type="soo.bin.domain.BoardPaging"/> -->
+ 	<typeAlias alias="Member" type="cam.ping.domain.Member"/>
+ 	<typeAlias alias="Camp" type="cam.ping.domain.Camp"/>
+ 	<typeAlias alias="Board" type="cam.ping.domain.Board"/>
+ 	<typeAlias alias="File" type="cam.ping.domain.Board_File"/>
+ 	<typeAlias alias="Comment" type="cam.ping.domain.Comment"/>
+</typeAliases>
+  <!-- <mappers>
+    <mapper resource="bin/md/mapper/AddressMapper.xml"/>
+  </mappers> -->
+</configuration>

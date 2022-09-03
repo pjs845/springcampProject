@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="cam.ping.mapper.LoginMapper">
+   	
+   	<!-- 회원가입 -->
+   	<insert id="signUp" parameterType="Member">
+   		insert into MEMBER values(MEMBER_SEQ.nextval, #{email}, #{name}, #{phone}, #{password}, 2, SYSDATE, SYSDATE)
+   	</insert>
+   	
+   	<!-- 로그인 체크 -->
+   	<select id="loginCheck" resultType="Member" parameterType="Member">
+		select * from MEMBER where EMAIL=#{email} AND PASSWORD=#{password}
+	</select>
+
+	<!-- 마이페이지 정보 넘기기 -->
+	<select id="myPageInfo" resultType="Member" parameterType="String">
+		select * from MEMBER where EMAIL=#{email}
+	</select>
+	
+	<!-- 회원정보 수정  ( 보류 ) 고칠게 없음 -->
+	<update id="memberUpdate" parameterType="Member">
+		update MEMBER set name=#{name}, password=#{password} where EMAIL=#{email}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+   	 <delete id="deleteMember" parameterType="Member">
+   		delete MEMBER where EMAIL=#{email} AND PASSWORD=#{password}
+   	</delete>
+   	
+   	<!-- 비밀번호 수정 -->
+   	<update id="passUpdate" parameterType="String">
+   		update MEMBER set password=#{password} where EMAIL=#{email}
+   	</update>
+   	
+   </mapper>
